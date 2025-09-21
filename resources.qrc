@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>res/img/check.png</file>
         <file>res/img/close.png</file>
+        <file>res/shader/shader.frag</file>
+        <file>res/shader/shader.vsh</file>
     </qresource>
 </RCC>
