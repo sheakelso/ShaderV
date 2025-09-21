@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "editorwindow.h"
 
 #include <QApplication>
 #include <QLocale>
@@ -19,5 +20,7 @@ int main(int argc, char *argv[])
     }
     MainWindow w;
     w.show();
+    EditorWindow e;
+    e.show();
     return a.exec();
 }

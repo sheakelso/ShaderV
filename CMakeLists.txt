@@ -11,6 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS OpenGLWidgets)
 
 set(TS_FILES ShaderV_en_GB.ts)
 
@@ -28,6 +29,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         newprojectwindow.h newprojectwindow.cpp newprojectwindow.ui
         resources.qrc
+        editorwindow.h editorwindow.cpp editorwindow.ui
+        viewportwidget.h viewportwidget.cpp viewportwidget.ui
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET ShaderV APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -52,6 +55,7 @@ else()
 endif()
 
 target_link_libraries(ShaderV PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(ShaderV PRIVATE Qt${QT_VERSION_MAJOR}::OpenGLWidgets)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
