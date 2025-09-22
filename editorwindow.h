@@ -18,10 +18,14 @@ public:
     explicit EditorWindow(QWidget *parent = nullptr);
     ~EditorWindow();
 
+private slots:
+    void on_actionAddObject_triggered();
+
 private:
     Ui::EditorWindow *ui;
     ViewportWidget *viewport;
     HierarchyWidget *hierarchy;
+    Scene *m_scene;
 };
 
 #endif // EDITORWINDOW_H

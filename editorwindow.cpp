@@ -8,15 +8,15 @@ EditorWindow::EditorWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    Scene *scene = new Scene;
+    m_scene = new Scene;
 
     hierarchy = new HierarchyWidget(this);
     hierarchy->setDockLocation(Qt::LeftDockWidgetArea);
-    hierarchy->set_scene(scene);
+    hierarchy->set_scene(m_scene);
 
     viewport = new ViewportWidget(this);
     setCentralWidget(viewport);
-    viewport->set_scene(scene);
+    viewport->set_scene(m_scene);
 
     this->showMaximized();
 }
@@ -25,3 +25,9 @@ EditorWindow::~EditorWindow()
 {
     delete ui;
 }
+
+void EditorWindow::on_actionAddObject_triggered()
+{
+    m_scene->get_root()->add_child(new SceneObject("New Object"));
+}
+
