@@ -1,10 +1,6 @@
 #ifndef VIEWPORTWIDGET_H
 #define VIEWPORTWIDGET_H
 
-#include <stdio.h>
-#include <fstream>
-#include <sstream>
-
 #include <QWidget>
 #include <QOpenGLFunctions>
 #include <QtOpenGLWidgets/QOpenGLWidget>
@@ -12,6 +8,8 @@
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLBuffer>
 #include <QOpenGLShaderProgram>
+
+#include "scene.h"
 
 namespace Ui {
 class ViewportWidget;
@@ -25,12 +23,15 @@ public:
     explicit ViewportWidget(QWidget *parent = nullptr);
     ~ViewportWidget();
 
+    void set_scene(Scene* scene);
+
 private:
     Ui::ViewportWidget *ui;
     QMatrix4x4 m_projection;
     QOpenGLVertexArrayObject m_vao;
     QOpenGLBuffer m_vbo;
     QOpenGLShaderProgram m_program;
+    Scene *m_scene;
 
 protected:
     void initializeGL() override

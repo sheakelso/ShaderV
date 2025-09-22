@@ -31,6 +31,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         resources.qrc
         editorwindow.h editorwindow.cpp editorwindow.ui
         viewportwidget.h viewportwidget.cpp viewportwidget.ui
+        scene.h scene.cpp
+        sceneobject.h sceneobject.cpp
+        hierarchywidget.h hierarchywidget.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET ShaderV APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

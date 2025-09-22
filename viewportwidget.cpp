@@ -12,3 +12,8 @@ ViewportWidget::~ViewportWidget()
 {
     delete ui;
 }
+
+void ViewportWidget::set_scene(Scene *scene)
+{
+    m_scene = scene;
+}
