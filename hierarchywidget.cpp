@@ -9,6 +9,7 @@ HierarchyWidget::HierarchyWidget(QWidget *parent)
     setWindowTitle("Hierarchy");
     m_tree = new QTreeWidget(this);
     setWidget(m_tree);
+    m_tree->setHeaderHidden(true);
 }
 
 HierarchyWidget::~HierarchyWidget()
@@ -29,8 +30,8 @@ void HierarchyWidget::add_object(SceneObject *object)
 {
     qInfo() << "adding object";
     SceneObject *parent = object->get_parent();
-    QTreeWidgetItem *item_parent = m_object_map[parent];
-    QTreeWidgetItem *item = object->to_tree_item();
+    HierarchyTreeItem *item_parent = m_object_map[parent];
+    HierarchyTreeItem *item = object->to_tree_item();
 
     if(object->get_parent() == nullptr)
     {
@@ -41,6 +42,7 @@ void HierarchyWidget::add_object(SceneObject *object)
     {
         if(item_parent != nullptr)
         {
+            m_object_map[object] = item;
             item_parent->addChild(item);
         }
         else
@@ -55,12 +57,12 @@ void HierarchyWidget::add_object(SceneObject *object)
 
 void HierarchyWidget::add_children(SceneObject *object)
 {
-    QTreeWidgetItem *item = m_object_map[object];
+    HierarchyTreeItem *item = m_object_map[object];
     QVector<SceneObject *> *children = object->get_children();
     for(int i = 0; i < children->count(); i++)
     {
         SceneObject *child = children->at(i);
-        QTreeWidgetItem *child_item = child->to_tree_item();
+        HierarchyTreeItem *child_item = child->to_tree_item();
         m_object_map[child] = child_item;
         item->addChild(child_item);
         add_children(child);
@@ -69,6 +71,10 @@ void HierarchyWidget::add_children(SceneObject *object)
 
 void HierarchyWidget::contextMenuEvent(QContextMenuEvent *event)
 {
+    m_clicked_item = dynamic_cast<HierarchyTreeItem *>(m_tree->itemAt(m_tree->mapFromGlobal(event->globalPos())));
+    if(m_clicked_item == nullptr) return;
+    qInfo() << m_clicked_item->text(0);
+
     QMenu menu;
     QAction *action = menu.addAction("Add Object");
     connect(action, &QAction::triggered, this, &HierarchyWidget::action_clicked);
@@ -77,5 +83,7 @@ void HierarchyWidget::contextMenuEvent(QContextMenuEvent *event)
 
 void HierarchyWidget::action_clicked()
 {
-    m_scene->get_root()->add_child(new SceneObject("Work please"));
+    SceneObject *obj = m_object_map.key(m_clicked_item);
+    if(obj == nullptr) return;
+    obj->add_child(new SceneObject("HOORAYYY"));
 }

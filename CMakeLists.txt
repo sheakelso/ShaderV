@@ -35,6 +35,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         sceneobject.h sceneobject.cpp
         hierarchywidget.h hierarchywidget.cpp
         event.h
+        hierarchytreeitem.h hierarchytreeitem.cpp
+        renderobject.h renderobject.cpp
+        mesh.h mesh.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET ShaderV APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

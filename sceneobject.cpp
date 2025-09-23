@@ -12,16 +12,16 @@ SceneObject::SceneObject(Scene *_scene, QString name)
     scene = _scene;
 }
 
-QTreeWidgetItem *SceneObject::to_tree_item()
+HierarchyTreeItem *SceneObject::to_tree_item()
 {
-    QTreeWidgetItem *item = new QTreeWidgetItem();
+    HierarchyTreeItem *item = new HierarchyTreeItem();
     item->setText(0, m_name);
     return item;
 }
 
 void SceneObject::add_child(SceneObject *child)
 {
-    m_children.append(child);
+    m_children->append(child);
     child->m_parent = this;
     on_child_added.trigger(child);
 
@@ -39,5 +39,5 @@ SceneObject *SceneObject::get_parent()
 
 QVector<SceneObject *> *SceneObject::get_children()
 {
-    return &m_children;
+    return m_children;
 }

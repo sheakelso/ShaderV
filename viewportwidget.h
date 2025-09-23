@@ -30,6 +30,7 @@ private:
     QMatrix4x4 m_projection;
     QOpenGLVertexArrayObject m_vao;
     QOpenGLBuffer m_vbo;
+    QOpenGLBuffer m_ibo;
     QOpenGLShaderProgram m_program;
     Scene *m_scene;
 
@@ -44,12 +45,21 @@ protected:
         static const GLfloat g_vertex_buffer_data[] = {
             -1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f,
             1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-            0.0f,  1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+            1.0f,  1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+            -1.0f,  1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+        };
+
+        static const GLuint g_index_buffer_data[] = {
+            0, 2, 1
         };
 
         m_vbo.create();
         m_vbo.bind();
         m_vbo.allocate(g_vertex_buffer_data, sizeof(g_vertex_buffer_data));
+
+        m_ibo.create();
+        m_ibo.bind();
+        m_ibo.allocate(g_index_buffer_data, sizeof(g_index_buffer_data));
 
         glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
 
@@ -71,9 +81,9 @@ protected:
         glEnableVertexAttribArray(1);
         m_vbo.bind();
         m_program.bind();
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)0);
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)0);
+        glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+        glDrawElements(GL_TRIANGLES, 1, GL_FLOAT, (GLvoid*)m_ibo.bufferId());
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
     }

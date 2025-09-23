@@ -6,6 +6,7 @@
 #include <QMap>
 
 #include "scene.h"
+#include "hierarchytreeitem.h"
 
 class HierarchyWidget : public QDockWidget
 {
@@ -26,7 +27,8 @@ private:
 
     QTreeWidget *m_tree;
     Scene *m_scene;
-    QMap<SceneObject *, QTreeWidgetItem *> m_object_map;
+    HierarchyTreeItem *m_clicked_item;
+    QMap<SceneObject *, HierarchyTreeItem *> m_object_map;
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
