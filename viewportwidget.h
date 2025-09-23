@@ -29,8 +29,8 @@ private:
     Ui::ViewportWidget *ui;
     QMatrix4x4 m_projection;
     QOpenGLVertexArrayObject m_vao;
-    QOpenGLBuffer m_vbo;
-    QOpenGLBuffer m_ibo;
+    QOpenGLBuffer m_vbo = QOpenGLBuffer(QOpenGLBuffer::VertexBuffer);
+    QOpenGLBuffer m_ibo = QOpenGLBuffer(QOpenGLBuffer::IndexBuffer);
     QOpenGLShaderProgram m_program;
     Scene *m_scene;
 
@@ -50,7 +50,8 @@ protected:
         };
 
         static const GLuint g_index_buffer_data[] = {
-            0, 2, 1
+            0, 1, 2,
+            3, 0, 2
         };
 
         m_vbo.create();
@@ -81,9 +82,10 @@ protected:
         glEnableVertexAttribArray(1);
         m_vbo.bind();
         m_program.bind();
-        glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)0);
-        glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
-        glDrawElements(GL_TRIANGLES, 1, GL_FLOAT, (GLvoid*)m_ibo.bufferId());
+        m_ibo.bind();
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)0);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
     }
