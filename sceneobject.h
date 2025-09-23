@@ -5,6 +5,8 @@
 #include <QVector>
 #include <QTreeWidgetItem>
 
+#include "event.h"
+
 class SceneObject
 {
 public:
@@ -13,6 +15,7 @@ public:
     void add_child(SceneObject *child);
     SceneObject *get_parent();
     QVector<SceneObject *> *get_children();
+    Event<SceneObject *> on_child_added;
 
 private:
     QString m_name = "Object";

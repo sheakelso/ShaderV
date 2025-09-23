@@ -16,6 +16,7 @@ void SceneObject::add_child(SceneObject *child)
 {
     m_children.append(child);
     child->m_parent = this;
+    on_child_added.trigger(child);
 }
 
 SceneObject *SceneObject::get_parent()

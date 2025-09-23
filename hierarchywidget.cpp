@@ -1,3 +1,4 @@
+
 #include "hierarchywidget.h"
 
 HierarchyWidget::HierarchyWidget(QWidget *parent)
@@ -18,6 +19,7 @@ void HierarchyWidget::set_scene(Scene* scene)
     m_scene = scene;
     m_tree->clear();
 
+    scene->on_object_added_event.bind([this](SceneObject *obj){this->add_object(obj);});
     add_object(scene->get_root());
 }
 
