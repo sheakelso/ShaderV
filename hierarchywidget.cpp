@@ -1,5 +1,7 @@
 
 #include "hierarchywidget.h"
+#include <QMenu>
+#include <QContextMenuEvent>
 
 HierarchyWidget::HierarchyWidget(QWidget *parent)
     : QDockWidget(parent)
@@ -63,4 +65,17 @@ void HierarchyWidget::add_children(SceneObject *object)
         item->addChild(child_item);
         add_children(child);
     }
+}
+
+void HierarchyWidget::contextMenuEvent(QContextMenuEvent *event)
+{
+    QMenu menu;
+    QAction *action = menu.addAction("Add Object");
+    connect(action, &QAction::triggered, this, &HierarchyWidget::action_clicked);
+    menu.exec(event->globalPos());
+}
+
+void HierarchyWidget::action_clicked()
+{
+    m_scene->get_root()->add_child(new SceneObject("Work please"));
 }

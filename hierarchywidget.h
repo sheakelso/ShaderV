@@ -17,6 +17,9 @@ public:
 
     void set_scene(Scene *scene);
 
+public slots:
+    void action_clicked();
+
 private:
     void add_object(SceneObject *object);
     void add_children(SceneObject *object);
@@ -24,6 +27,9 @@ private:
     QTreeWidget *m_tree;
     Scene *m_scene;
     QMap<SceneObject *, QTreeWidgetItem *> m_object_map;
+
+protected:
+    void contextMenuEvent(QContextMenuEvent *event) override;
 };
 
 #endif // HIERARCHYWIDGET_H

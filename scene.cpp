@@ -2,7 +2,7 @@
 
 Scene::Scene()
 {
-    m_root = new SceneObject("Root");
+    m_root = new SceneObject(this, "Root");
     SceneObject *obj = new SceneObject("object1");
     m_root->add_child(obj);
     m_root->add_child(new SceneObject("object2"));
